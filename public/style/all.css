@@ -1,0 +1,27 @@
+body {
+  background-color: aliceblue;
+}
+body h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+#loginContainer {
+  border: 2px solid gray;
+  padding: 10px;
+  border-radius: 5px;
+  max-width: 700px;
+  background-color: rgba(255, 255, 255, 0.4);
+  margin: 0 auto;
+}
+#loginContainer .btn-group {
+  margin-bottom: 10px;
+}
+#loginContainer h2 {
+  margin-top: 0;
+}
+#loginContainer [type=submit] {
+  margin-top: 10px;
+}
+#loginContainer .startHide {
+  display: none;
+}

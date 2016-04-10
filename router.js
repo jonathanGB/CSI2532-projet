@@ -4,5 +4,6 @@ module.exports = function(app) {
   app
   .get('/', Controller.Index)
   .get('/login', Controller.Login)
-  .get('/sub', Controller.Sub);
+  .get('/register', Controller.Register)
+  .get('/logout', Controller.Logout);
 }

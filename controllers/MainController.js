@@ -2,19 +2,27 @@ exports.Index = (req, res) => {
   if (req.session.name)
     res.render('Index');
   else {
-    res.redirect('/login');
+    res.redirect('/register');
   }
 };
 
 exports.Login = (req, res) => {
-  res.info = {};
-  res.info.name = req.session.name ?
-                    req.session.name:
-                    '';
-
-  res.status(300).render('Login', res.info);
+    if (req.session.name)
+      res.redirect('/');
+    else
+      res.render('Login')
 }
 
-exports.Sub = (req, res) => {
-  res.render('Sub');
+exports.Register = (req, res) => {
+  if (req.session.name)
+    res.redirect('/');
+  else
+    res.render('Register');
+}
+
+exports.Logout = (req, res) => {
+  if (req.session.name)
+    res.render('Logout');
+  else
+    res.redirect('/register');
 }

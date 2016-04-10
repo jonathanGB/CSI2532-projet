@@ -1,4 +1,7 @@
+var Model = require('../models/MainModel');
+
 exports.Index = (req, res) => {
+  Model.hello();
   if (req.session.name)
     res.render('Index');
   else {

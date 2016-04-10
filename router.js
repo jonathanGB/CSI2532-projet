@@ -5,5 +5,6 @@ module.exports = function(app) {
   .get('/', Controller.Index)
   .get('/login', Controller.Login)
   .get('/register', Controller.Register)
-  .get('/logout', Controller.Logout);
+  .get('/logout', Controller.Logout)
+  .post('/login', Controller.ValidateLogin)
 }

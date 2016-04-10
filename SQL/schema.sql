@@ -1,3 +1,4 @@
+﻿
 SET search_path = HopitalDB;
 DROP SCHEMA IF EXISTS HopitalDB CASCADE;
 CREATE SCHEMA HopitalDB;
@@ -16,14 +17,14 @@ CREATE SCHEMA HopitalDB;
 -- DROP TABLE IF EXISTS HopitalDB.Substance;
 
 CREATE TABLE IF NOT EXISTS HopitalDB.Secretaire(
-	phoneNoS 	VARCHAR		NOT NULL,
-	nom		VARCHAR		NOT NULL,
+	phoneNoS 	VARCHAR		NOT NULL, 
+	nom			VARCHAR		NOT NULL,
 	prenom		VARCHAR		NOT NULL,
-	adresse 	VARCHAR		NOT NULL,
+	adresse 	VARCHAR		NOT NULL, 
 	PRIMARY KEY (phoneNoS));
 
 
-
+	
 CREATE TABLE IF NOT EXISTS  HopitalDB.Medecin(
 	medecinID	VARCHAR(4)		UNIQUE NOT NULL,
 	phoneNoM	VARCHAR			NOT NULL,
@@ -39,9 +40,9 @@ CREATE TABLE IF NOT EXISTS  HopitalDB.Medecin(
 
 CREATE DOMAIN HopitalDB.sex AS CHAR
 	CHECK (VALUE IN ('M', 'F'));
+	
 
-
-
+	
 CREATE TABLE IF NOT EXISTS HopitalDB.Patient(
 	SSN		VARCHAR(10)		NOT NULL,
 	phoneNoP	VARCHAR			NOT NULL,
@@ -50,11 +51,11 @@ CREATE TABLE IF NOT EXISTS HopitalDB.Patient(
 	prenom 		VARCHAR			NOT NULL,
 	adresse		VARCHAR			NOT NULL,
 	gender		sex			DEFAULT 'M',
-	dateNaissance	VARCHAR(10)		NOT NULL,
+	dateNaissance	VARCHAR(10)		NOT NULL, 
 	PRIMARY KEY (SSN),
 	FOREIGN KEY (medecinID) REFERENCES HopitalDB.Medecin(medecinID) ON DELETE RESTRICT ON UPDATE CASCADE);
 
-
+	
 CREATE TABLE IF NOT EXISTS HopitalDB.Consultation(
 	medecinID	VARCHAR(4)		NOT NULL,
 	phoneNoS	VARCHAR			NOT NULL,
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS HopitalDB.Consultation(
 
 
 CREATE TABLE IF NOT EXISTS HopitalDB.PrescriptionES(
-	prescriptionESID	SERIAL PRIMARY KEY,
+	prescriptionESID	SERIAL PRIMARY KEY,	
 	SSN			VARCHAR(10)		NOT NULL,
 	heureDebut		VARCHAR(10)		NOT NULL,
 	dateC			VARCHAR(10)		NOT NULL,
@@ -93,7 +94,7 @@ CREATE TABLE IF NOT EXISTS HopitalDB.Patologie(
 	PRIMARY KEY (nomP));
 
 
-
+	
 CREATE TABLE IF NOT EXISTS HopitalDB.PatologiePatient(
 	SSN		VARCHAR(10)		NOT NULL,
 	nomP		VARCHAR(20)		NOT NULL,
@@ -105,7 +106,7 @@ CREATE TABLE IF NOT EXISTS HopitalDB.PatologiePatient(
 
 CREATE TABLE IF NOT EXISTS HopitalDB.SubstanceActive(
 	nomS		VARCHAR(20)		NOT NULL,
-	PRIMARY KEY (nomS));
+	PRIMARY KEY (nomS));	
 
 
 CREATE TABLE IF NOT EXISTS HopitalDB.Medicament(

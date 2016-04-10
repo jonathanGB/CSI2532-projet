@@ -18,3 +18,19 @@ INSERT INTO HopitalDB.Patient VALUES ('235-456','600-111-1111','M002','Sow','Bal
 INSERT INTO HopitalDB.Patient VALUES ('236-456','700-111-1111','M001','Vaillancourt','Emilie','120 Duchesse Road, Kingston, Hello World','F','31.01.2016');
 INSERT INTO HopitalDB.Patient VALUES ('237-456','800-111-1111','M003','Decossard','Hyaad','125 Duchesse Road, Kingston, Hello World','M','15.05.2006');
 INSERT INTO HopitalDB.Patient VALUES ('238-456','900-111-1111','M002','Coulibaly','Amadou','185 Duchesse Road, Kingston, Hello World','M','09.10.1946');
+
+INSERT INTO HopitalDB.Pathologie VALUES ('Rhume');
+INSERT INTO HopitalDB.Pathologie VALUES ('Grippe');
+INSERT INTO HopitalDB.Pathologie VALUES ('Pneumonie');
+INSERT INTO HopitalDB.Pathologie VALUES ('Cancer');
+INSERT INTO HopitalDB.Pathologie VALUES ('Cancer du foie');
+INSERT INTO HopitalDB.Pathologie VALUES ('Stand parasite');
+
+INSERT INTO HopitalDB.PathologiePatient VALUES ('232-456','Rhume','25/05/2011','30/07/2011');
+INSERT INTO HopitalDB.PathologiePatient VALUES ('235-456','Rhume','01/05/2011','05/05/2011');
+INSERT INTO HopitalDB.PathologiePatient VALUES ('235-456','Grippe','24/07/2013','30/07/2014');
+INSERT INTO HopitalDB.PathologiePatient VALUES ('238-456','Rhume','25/12/2010','01/01/2011');
+INSERT INTO HopitalDB.PathologiePatient VALUES ('238-456','Pneumonie','12/02/2015','11/03/2015');
+INSERT INTO HopitalDB.PathologiePatient VALUES ('237-456','Cancer','11/11/2009','20/10/2015');
+INSERT INTO HopitalDB.PathologiePatient VALUES ('236-456','Cancer du foie','01/01/2016','31/12/2016');
+INSERT INTO HopitalDB.PathologiePatient VALUES ('234-456','Cancer du foie','17/02/2007','10/04/2014');

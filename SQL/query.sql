@@ -1,13 +1,12 @@
-SET search_path = HopitalDB;
+﻿SET search_path = HopitalDB;
 
-/**************************************************************
+/************************************************************** 
 1 - Quels sont les médecins du cabinet médical ordonnés par noms en ordre croissant
 **************************************************************/
 
-Select *
-From Medecin
-Order by nom;
-
+SELECT *
+FROM Medecin
+ORDER BY nom;
 
 
 /**************************************************************
@@ -15,10 +14,9 @@ Order by nom;
 ces patients
 **************************************************************/
 
-Select SSN,Patient.nom,Patient.prenom,phoneNoP,Patient.adresse,gender,dateNaissance
-From Patient,Medecin
-Where Medecin.medecinID = 'M001' AND Medecin.medecinID = Patient.medecinID;
-
+SELECT *
+FROM Patient
+WHERE medecinID = 'M001';
 
 
 /**************************************************************
@@ -26,82 +24,98 @@ Where Medecin.medecinID = 'M001' AND Medecin.medecinID = Patient.medecinID;
 informations de ces patients
 **************************************************************/
 
-Select Patient.*
-From Patient,Medecin
-Where Medecin.nom LIKE '%blay%' AND Medecin.medecinID = Patient.medecinID;
-
+SELECT *
+FROM Patient
+WHERE medecinID IN (SELECT medecinID
+		FROM Medecin
+		WHERE nom LIKE '%blay%' OR nom LIKE '%Blay%');
 
 
 /**************************************************************
 4 - Quels sont les patients du médecin Tremblay et ceux du médecin Solo ?
 **************************************************************/
 
-Select Patient.*
-From Patient, Medecin
-Where (Medecin.nom = 'Tremblay' OR Medecin.nom = 'Solo') AND Medecin.medecinID = Patient.medecinID;
-
+SELECT *
+FROM Patient
+WHERE medecinID IN (SELECT medecinID
+	FROM Medecin
+	WHERE nom = 'Tremblay' OR nom = 'Solo');
 
 
 /******************************************************************************
 5 - Quels sont les patients qui ont eu la pathologie « rhume » mais pas la pathologie « grippe » ?
 **********************************************************************************************/
 
-Select Patient.*
-From Patient, PatologiePatient
-Where (PatologiePatient.nomp = 'Rhume' AND PatologiePatient.nomp != 'Grippe') AND PatologiePatient.SSN = Patient.SSN;
+SELECT *
+FROM Patient 
+WHERE SSN IN (SELECT SSN
+		FROM PathologiePatient
+		WHERE nomP = 'Rhume')
+	AND SSN NOT IN (SELECT SSN
+		FROM PathologiePatient
+		WHERE nomP = 'Grippe');
+
 
 /**************************************************************
 6 - Quels sont les médecins qui ont traité les pathologies « rhume » et « grippe » ?
 **************************************************************/
 
-Select Medecin.*
-From Patient, PatologiePatient, Medecin
-Where (PatologiePatient.nomp = 'rhume' OR PatologiePatient.nomp != 'Grippe') AND PatologiePatient.SSN = Patient.SSN AND Patient.medecinID = Medecin.medecinID;
+SELECT * FROM Medecin WHERE medecinID IN
+	(SELECT medecinID FROM Patient WHERE SSN IN
+		(SELECT SSN FROM PathologiePatient WHERE nomP = 'Rhume')
+		AND SSN IN (SELECT SSN FROM PathologiePatient WHERE nomP = 'Grippe'));
 
 
 /**************************************************************
-7 - Quel est le nombre de patients qui ont été traités par le médecin « tremblay » et qui ont la pathologie « Cancer du foie » ?
+7 - Quel est le nombre de patients qui ont été traités par le médecin « Tremblay » et qui ont la pathologie « Cancer du foie » ?
 **************************************************************/
 
-Select Count(Patient.SSN)
-From Patient, Medecin, PatologiePatient
-Where Medecin.nom = 'Tremblay' AND Medecin.medecinID = Patient.medecinID AND PatologiePatient.SSN = PatologiePatient.SSN AND PatologiePatient.nomp = 'Cancer du foie';
-
+SELECT COUNT(SSN) FROM Patient WHERE medecinID IN
+	(SELECT medecinID FROM Medecin WHERE nom = 'Tremblay')
+	AND SSN IN (SELECT SSN FROM PathologiePatient WHERE nomP = 'Cancer du foie');
 
 
 /**************************************************************
-8 - Quel est le nombre de patients qui ont été traités par le médecin « tremblay » et qui n’ont pas
+8 - Quel est le nombre de patients qui ont été traités par le médecin « Tremblay » et qui n’ont pas
 la pathologie « Cancer du foie » ?
 **************************************************************/
 
-Select Count(Patient.SSN)
-From Patient, Medecin, PatologiePatient
-Where Medecin.nom = 'Tremblay' AND Medecin.medecinID = Patient.medecinID AND PatologiePatient.SSN = PatologiePatient.SSN AND PatologiePatient.nomP != 'Cancer du foie';
-
+SELECT COUNT(SSN) FROM Patient WHERE medecinID IN
+	(SELECT medecinID FROM Medecin WHERE nom = 'Tremblay')
+	AND SSN NOT IN (SELECT SSN FROM PathologiePatient WHERE nomP = 'Cancer du foie');
 
 
 /**************************************************************
-9 - Quel est le nombre de patients par médecin dans le cabinet médical ? affichez l’ID, le nom du médecin et le nombre de patients.
+9 - Quel est le nombre de patients par médecin dans le cabinet médical ? Affichez l’ID, le nom du médecin et le nombre de patients.
 **************************************************************/
 
-Select Medecin.medecinID, Medecin.nom ,Count(Patient.SSN)
-From Patient, Medecin
-Where Medecin.medecinID = Patient.medecinID
-Group by Medecin.nom,Medecin.medecinID;
+SELECT Medecin.medecinID, Medecin.nom, COUNT(Patient.SSN)
+FROM Patient, Medecin
+WHERE Medecin.medecinID = Patient.medecinID
+GROUP BY Medecin.nom, Medecin.medecinID;
+
 
 /**************************************************************
 10 - Quel est le nombre de patients par médecin dans le cabinet médical qui ont été traités pour la
 pathologie « Cancer » ? affichez l’ID du médecin et le nombre de patients.
 **************************************************************/
 
-Select Medecin.medecinID, Count(Patient.SSN)
-from Patient, Medecin, PatologiePatient
-Where PatologiePatient.nomp = 'Cancer' AND PatologiePatient.SSN = PatologiePatient.SSN AND Medecin.medecinID = Patient.medecinID
-Group by Medecin.medecinID;
-
+SELECT Medecin.medecinID, COUNT(Patient.SSN)
+FROM Patient, Medecin
+WHERE Medecin.medecinID = Patient.medecinID
+	AND Patient.SSN IN (SELECT SSN
+					FROM PathologiePatient
+					WHERE nomP LIKE '%Cancer%')
+GROUP BY Medecin.medecinID;
 
 
 /**************************************************************
 11 - Quels sont les médicaments du patient P001 qui sont contre-indiqués avec la nouvelle
 prescription du médicament M003 ?
 **************************************************************/
+
+		
+	
+
+
+

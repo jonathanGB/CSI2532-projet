@@ -5,6 +5,11 @@ body h1 {
   font-size: 3em;
   margin-bottom: 20px;
 }
+body h1 #persoTop {
+  float: right;
+  font-size: 18px;
+  margin-top: 6px;
+}
 #registerContainer {
   border: 2px solid #E8E8E8;
   padding: 10px;

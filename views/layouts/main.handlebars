@@ -13,7 +13,15 @@
   </head>
   <body>
     <div class="container">
-      <h1>Cabinet médical</h1>
+      <h1>
+        Cabinet médical
+        {{#if nom}}
+          <span id="persoTop">
+            {{prenom}} {{nom}}
+            <a href="/logout" class="btn btn-primary">Se déconnecter <span class="glyphicon glyphicon-log-out"></span></a>
+          </span>
+        {{/if}}
+      </h1>
       {{{body}}}
     </div>
   </body>

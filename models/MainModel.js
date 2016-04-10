@@ -1,9 +1,7 @@
 var pg = require('pg'),
     conString = 'postgres://postgres:root@localhost:5432/projet-csi2532';
 
-exports.isSecretaire = (controllerCallback) => {
-  console.log('wazzza');
-
+exports.isSecretaire = (tel, controllerCallback) => {
   var results = [];
 
   pg.connect(conString, (err, client, done) => {
@@ -15,7 +13,7 @@ exports.isSecretaire = (controllerCallback) => {
     }
 
     // SQL Query > Select Data
-    var query = client.query("SELECT * FROM Secretaire;");
+    var query = client.query("SELECT * FROM Secretaire WHERE phoneNoS = $1;", [tel]);
 
     // Stream results back one row at a time
     query.on('row', function(row) {

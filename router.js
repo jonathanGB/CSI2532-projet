@@ -7,4 +7,5 @@ module.exports = function(app) {
   .get('/register', Controller.Register)
   .get('/logout', Controller.Logout)
   .post('/login', Controller.ValidateLogin)
+  .delete('/logout', Controller.DestroySession)
 }

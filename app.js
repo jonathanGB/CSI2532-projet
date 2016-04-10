@@ -20,7 +20,8 @@ app.use(cookieParser());
 app.use(expressSession({
   secret: 'csi2532-secret-cookie',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  secure: false
 }));
 app.use(bodyParser.urlencoded({
   extended: true

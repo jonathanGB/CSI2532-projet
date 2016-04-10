@@ -3,8 +3,11 @@
   "private": true,
   "version": "0.0.1",
   "dependencies": {
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
     "express": "^4.13.4",
     "express-handlebars": "^3.0.0",
+    "express-session": "^1.13.0",
     "less": "^2.6.1",
     "pg": "^4.5.2"
   }

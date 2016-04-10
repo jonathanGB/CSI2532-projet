@@ -1,7 +1,7 @@
 <div class="text-center" id="registerContainer">
   <h2 class="text-center">Inscription au portail</h2>
   <img src="/public/img/separator.png" alt="separator" />
-  <form role="form" class="form-inline">
+  <div role="form" class="form-inline">
     <div class="btn-group" id="typeChoix" data-toggle="buttons">
       <label class="btn btn-default">
         <input type="radio" name="options" id="medecin" autocomplete="off"> Médecin
@@ -14,7 +14,7 @@
       </label>
     </div>
     <br>
-    <div id="medecinForm" class="startHide persoForm">
+    <form id="medecinForm" class="startHide persoForm">
       <div class="form-group">
         <input type="text" class="form-control input-lg" placeholder="medecinId">
       </div>
@@ -33,26 +33,29 @@
       <div class="form-group">
         <input type="text" class="form-control input-lg" placeholder="spécialité">
       </div>
+      <div class="form-group">
+        <input type="text" class="form-control input-lg" placeholder="téléphone secrétaire">
+      </div>
       <br>
       <button type="submit" class="btn btn-success btn-lg">Envoyer <span class="glyphicon glyphicon-send"></span></button>
-    </div>
-    <div id="secretaireForm" class="startHide persoForm">
+    </form>
+    <form id="secretaireForm" class="startHide persoForm">
       <div class="form-group">
         <input type="text" class="form-control input-lg" placeholder="téléphone">
       </div>
       <div class="form-group">
-        <input type="email" class="form-control input-lg" placeholder="adresse">
+        <input type="text" class="form-control input-lg" placeholder="adresse">
       </div>
       <div class="form-group">
-        <input type="email" class="form-control input-lg" placeholder="prénom">
+        <input type="text" class="form-control input-lg" placeholder="prénom">
       </div>
       <div class="form-group">
-        <input type="email" class="form-control input-lg" placeholder="nom">
+        <input type="text" class="form-control input-lg" placeholder="nom">
       </div>
       <br>
       <button type="submit" class="btn btn-success btn-lg">Envoyer <span class="glyphicon glyphicon-send"></span></button>
-    </div>
-    <div id="patientForm" class="startHide persoForm">
+    </form>
+    <form id="patientForm" class="startHide persoForm">
       <div class="form-group">
         <input type="text" class="form-control input-lg" placeholder="SSN">
       </div>
@@ -87,8 +90,8 @@
       </div>
       <br>
       <button type="submit" class="btn btn-success btn-lg">Envoyer <span class="glyphicon glyphicon-send"></span></button>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
 
 <div class="text-center toLogin">

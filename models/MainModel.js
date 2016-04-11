@@ -252,3 +252,44 @@ exports.updateObjet = (dataSent, controllerCallback) => {
         });
     });
 };
+
+exports.getConsultationPrescription = (dataSent, controllerCallback) => {
+  var objResult = {
+    'Prescription Examen': [],
+    'Prescription Medicamenteuse': []
+  },
+      results = [], results2 = [];
+
+  pg.connect(conString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return controllerCallback(true);
+    }
+    var query = client.query("SELECT nomExam FROM PrescriptionES WHERE SSN = $1 AND date = $2 AND heureDebut = $3 ORDER BY nomExam", dataSent);
+
+    // Stream results back one row at a time
+    query.on('row', function(row) {
+        results.push(row);
+    });
+
+    // After all data is returned, close connection and return results
+    query.on('end', function() {
+      var query2 = client.query("SELECT nom, dureeValidite FROM PrescriptionM WHERE SSN = $1 AND date = $2 AND heureDebut = $3 ORDER BY nom", dataSent);
+
+      query2.on('row', function(row) {
+          results2.push(row);
+      });
+
+      // After all data is returned, close connection and return results
+      query2.on('end', function() {
+        controllerCallback({
+          'Prescription Examen': results,
+          'Prescription Medicamenteuse': results2
+        });
+        done();
+      });
+    });
+  });
+};

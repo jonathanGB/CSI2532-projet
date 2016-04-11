@@ -13,6 +13,7 @@ module.exports = function(app) {
   .post('/createConsultation', Controller.CreateConsultation)
   .get('/consultation', Controller.Consultation)
   .post('/modifyObjet', Controller.ModifyObjet)
+  .post('/consultationPrescription', Controller.ConsultationPrescription)
 
   .get('/api/query1', QueryController.Query1)
   .get('/api/query2', QueryController.Query2)

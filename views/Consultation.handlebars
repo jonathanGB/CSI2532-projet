@@ -7,7 +7,6 @@
     {{#eq type 'Médecin'}}
       <li role="presentation"><a href="/">Info</a></li>
       <li role="presentation" class="active"><a href="/consultation">Consultations</a></li>
-      <li role="presentation"><a href="/prescription">Prescriptions</a></li>
     {{/eq}}
     {{#eq type 'Secrétaire'}}
       <li role="presentation"><a href="/">Info</a></li>
@@ -17,7 +16,7 @@
     {{#eq type 'Patient'}}
     <li role="presentation"><a href="/">Info</a></li>
     <li role="presentation" class="active"><a href="/consultation">Consultations</a></li>
-    <li role="presentation"><a href="/prescription">Prescriptions</a></li>
+    <!-- <li role="presentation"><a href="/prescription">Prescriptions</a></li> -->
     {{/eq}}
   </ul>
 
@@ -33,7 +32,17 @@
     </thead>
     <tbody>
       {{#each data}}
-        <tr>
+      {{#eq ../type 'Médecin'}}
+        <tr class="hover">
+      {{/eq}}
+      {{#eq ../type 'Patient'}}
+        <tr class="hover">
+      {{/eq}}
+      {{#neq ../type 'Médecin'}}
+        {{#neq ../type 'Patient'}}
+          <tr>
+        {{/neq}}
+      {{/neq}}
           {{#each this}}
             {{#neq @key 'prenom'}}
               {{#neq @key 'nom'}}
@@ -62,6 +71,45 @@
       {{/each}}
     </tbody>
   </table>
+
+  <div class="modal fade" id="consultationPrescription" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Prescriptions pour cette consultation</h4>
+        </div>
+        <div class="modal-body">
+          <h4 class="text-center">Prescription Examen</h5>
+          <table class="table table-bordered table-curved">
+            <thead>
+              <th>
+                nom exam
+              </th>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+          <br>
+          <h4 class="text-center">Prescription Médicamenteuse</h5>
+          <table class="table table-bordered table-curved">
+            <thead>
+              <th>
+                nom médicament
+              </th>
+              <th>
+                durée validité
+              </th>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="modal fade" id="modifyObjet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

@@ -24,6 +24,31 @@ $(function() {
       });
     }
   });
+
+  $('tr.hover').click(function() {
+    storeData(this);
+
+    var updateData = [ssnForm, dateForm, heureDebutForm];
+    $.post('/consultationPrescription', {data: updateData}, function(data) {
+      if (data === 'error')
+        alert('Erreur');
+      else {
+        $('#consultationPrescription table tbody').html('');
+        console.log(data);// open new modal
+        Object.keys(data).forEach(function(exam, ind) {
+          data[exam].forEach(function(obj) {
+            var row = "<tr>";
+            Object.keys(obj).forEach(function(val) {
+              row += "<td>" + val + "</td>";
+            });
+            row += "</tr>";
+            $('#consultationPrescription table:eq('+ind+') tbody').append(row);
+          });
+        });
+        $('#consultationPrescription').modal('show');
+      }
+    });
+  });
 });
 
 function storeData(target) {

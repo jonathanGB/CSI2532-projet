@@ -225,4 +225,17 @@ exports.ModifyObjet = (req, res) => {
     } else
       res.send('ok');
   });
-}
+};
+
+exports.ConsultationPrescription = (req, res) => {
+  var data;
+
+  MainModel.getConsultationPrescription(req.body.data, (data) => {
+    console.log(data);
+    if (Object.keys(data).length === 0)
+      res.send('error');
+    else {
+      res.send(data);
+    }
+  });
+};

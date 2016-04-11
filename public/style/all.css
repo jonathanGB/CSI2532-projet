@@ -64,6 +64,10 @@ body h1 #persoTop {
   /* Chrome, Safari, Opera */
   transform: rotate(-90deg);
 }
+#API_Query .hover,
+.customTableContainer .hover {
+  cursor: pointer;
+}
 #API_Query table,
 .customTableContainer table {
   margin: 0 auto;

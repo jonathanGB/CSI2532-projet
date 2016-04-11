@@ -64,53 +64,69 @@ body h1 #persoTop {
   /* Chrome, Safari, Opera */
   transform: rotate(-90deg);
 }
-table {
+#API_Query table,
+.customTableContainer table {
   margin: 0 auto;
 }
-table td,
-table th {
+#API_Query table td,
+.customTableContainer table td,
+#API_Query table th,
+.customTableContainer table th {
   padding: 5px;
   text-align: center;
   font-size: 16px;
 }
-table thead tr {
-  background-color: #C7C7C7;
+#API_Query table thead tr,
+.customTableContainer table thead tr {
+  background-color: #C7C7C7 !important;
 }
-table tbody tr {
+#API_Query table tbody tr,
+.customTableContainer table tbody tr {
   background-color: white;
 }
-table tbody tr:hover {
+#API_Query table tbody tr:hover,
+.customTableContainer table tbody tr:hover {
   background-color: #F7F7F7;
 }
-.table-curved {
+#API_Query .table-curved,
+.customTableContainer .table-curved {
   border-collapse: separate;
 }
-.table-curved {
+#API_Query .table-curved,
+.customTableContainer .table-curved {
   border: solid #ccc 1px;
   border-radius: 6px;
   border-left: 0px;
 }
-.table-curved td,
-.table-curved th {
+#API_Query .table-curved td,
+.customTableContainer .table-curved td,
+#API_Query .table-curved th,
+.customTableContainer .table-curved th {
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
 }
-.table-curved th {
+#API_Query .table-curved th,
+.customTableContainer .table-curved th {
   border-top: none;
 }
-.table-curved th:first-child {
+#API_Query .table-curved th:first-child,
+.customTableContainer .table-curved th:first-child {
   border-radius: 6px 0 0 0;
 }
-.table-curved th:last-child {
+#API_Query .table-curved th:last-child,
+.customTableContainer .table-curved th:last-child {
   border-radius: 0 6px 0 0;
 }
-.table-curved th:only-child {
+#API_Query .table-curved th:only-child,
+.customTableContainer .table-curved th:only-child {
   border-radius: 6px 6px 0 0;
 }
-.table-curved tr:last-child td:first-child {
+#API_Query .table-curved tr:last-child td:first-child,
+.customTableContainer .table-curved tr:last-child td:first-child {
   border-radius: 0 0 0 6px;
 }
-.table-curved tr:last-child td:last-child {
+#API_Query .table-curved tr:last-child td:last-child,
+.customTableContainer .table-curved tr:last-child td:last-child {
   border-radius: 0 0 6px 0;
 }
 #indexContainer .navbar-btn a {

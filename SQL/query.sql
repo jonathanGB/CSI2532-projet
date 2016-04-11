@@ -124,10 +124,11 @@ SELECT * FROM Medicament WHERE nomM IN
 12. Lister la liste des substances actives ainsi que pour chaque substance, les substances incompatibles si elles existent (sinon affichez null)
 **************************************************************/
 
-SELECT nomS AS Substance, nomS1 AS Incompatible
-FROM SubstanceActive LEFT OUTER JOIN ContreIndicationSubSub ON (SubstanceActive.nomS = ContreIndicationSubSub.nomS2);
--- Pour que ça marche il faut entrer les contre-indications dans les deux sens dans la BDD, sinon ça n'affiche qu'une contre-indication sur deux.
--- Je n'ai pas trouvé de solution plus élégante mais si vous avez des idées...
+SELECT *
+FROM ((SELECT nomS AS Substance, nomS2 AS Incompatible
+FROM SubstanceActive LEFT OUTER JOIN ContreIndicationSubSub ON (SubstanceActive.nomS = ContreIndicationSubSub.nomS1)) UNION (SELECT nomS AS Substance, nomS1 AS Incompatible
+FROM SubstanceActive LEFT OUTER JOIN ContreIndicationSubSub ON (SubstanceActive.nomS = ContreIndicationSubSub.nomS2))) AS Substances;
+
 
 /**************************************************************
 13. Créez un trigger qui rejette l’insertion dans une nouvelle prescription d’un médicament contre-indiqué pour un patient donné

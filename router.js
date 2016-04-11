@@ -25,5 +25,5 @@ module.exports = function(app) {
   .get('/api/query12', QueryController.Query12)
   .get('/api/query13', QueryController.Query13)
   .get('/api/query14', QueryController.Query14)
-  .get('/api/query15', QueryController.Query15)
+  .get('/api/query15', QueryController.Query15);
 }

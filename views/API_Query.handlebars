@@ -1,1 +1,28 @@
-<h2>{{queryTitle}}</h2>
+<div id="API_Query" clas="text-center">
+  <h2 class="text-center">
+    {{#neq  queryTitle 'Query 1'}}
+      <a href="/api/query{{{prevQuery queryTitle}}}"><img class="arrow left-arrow" src="/public/img/arrow.png" alt="arrow" /></a>
+    {{/neq}}
+    {{queryTitle}}
+    {{#neq  queryTitle 'Query 15'}}
+      <a href="/api/query{{{nextQuery queryTitle}}}"><img class="arrow right-arrow" src="/public/img/arrow.png" alt="arrow" /></a>
+    {{/neq}}
+  </h2>
+
+  <table class="table table-bordered table-curved">
+    <thead>
+      {{#each data.[0]}}
+        <th>{{@key}}</th>
+      {{/each}}
+    </thead>
+    <tbody>
+      {{#each data}}
+        <tr>
+          {{#each this}}
+            <td>{{this}}</td>
+          {{/each}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

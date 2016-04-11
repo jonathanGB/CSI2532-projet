@@ -8,8 +8,24 @@ const express = require('express'),
 
 var app = express(),
     hbs = handlebars.create({
-      defaultLayout: 'main'
-    });
+      defaultLayout: 'main',
+      helpers: {
+        prevQuery: (title) => {
+          console.log(title);
+          var curr = title.split(' ');
+          return parseInt(curr[1]) - 1;
+        },
+        nextQuery: (title) => {
+          console.log(title);
+          var curr = title.split(' ');
+          return parseInt(curr[1]) + 1;
+        },
+        neq: function(i, j, block) {
+          if (i != j)
+            return block.fn(this);
+        }
+      }
+    })
 
 app.set('port', 5000);
 app.set('views', path.join(__dirname, 'views'));

@@ -1,3 +1,43 @@
-<h3 class="text-center">
-  {{type}}
-</h3>
+<div id="indexContainer">
+  <h3 class="text-center">
+    {{type}}
+  </h3>
+
+    <ul class="nav nav-pills">
+      {{#eq type 'Médecin'}}
+        <li role="presentation" class="active"><a href="/">Info</a></li>
+        <li role="presentation"><a href="/consultation">Consultations</a></li>
+        <li role="presentation"><a href="/prescription">Prescriptions</a></li>
+      {{/eq}}
+      {{#eq type 'Secrétaire'}}
+        <li role="presentation" class="active"><a href="/">Info</a></li>
+        <li role="presentation"><a href="/consultation">Consultations</a></li>
+        <li role="presentation"><a data-href="/consultation"><span class="glyphicon glyphicon-plus"></span> Consultation</a></li>
+      {{/eq}}
+      {{#eq type 'Patient'}}
+      <li role="presentation" class="active"><a href="/">Info</a></li>
+      <li role="presentation"><a href="/consultation">Consultations</a></li>
+      <li role="presentation"><a href="/prescription">Prescriptions</a></li>
+      {{/eq}}
+    </ul>
+
+    <table class="table table-bordered table-curved">
+      <thead>
+        {{#each data.[0]}}
+          <th>{{@key}}</th>
+        {{/each}}
+      </thead>
+      <tbody>
+        {{#each data.[0]}}
+          <td>
+            {{#eq @key 'datenaissance'}}
+              {{formatIfDate this}}
+            {{/eq}}
+            {{#neq @key 'datenaissance'}}
+              {{this}}
+            {{/neq}}
+          </td>
+        {{/each}}
+      </tbody>
+    </table>
+</div>

@@ -20,8 +20,16 @@ var app = express(),
           var curr = title.split(' ');
           return parseInt(curr[1]) + 1;
         },
+        formatIfDate: (elem) => {
+          new Date(elem).toGMTString().search(/(\w+ \w+ \w+)/);
+          return RegExp.$1;
+        },
         neq: function(i, j, block) {
           if (i != j)
+            return block.fn(this);
+        },
+        eq: function(i, j, block) {
+          if (i == j)
             return block.fn(this);
         }
       }

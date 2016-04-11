@@ -12,16 +12,26 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
   <body>
+    <style>
+      h1 a {
+        color: black;
+      }
+
+      h1 a:hover {
+        text-decoration: none;
+        color: black;
+      }
+    </style>
     <div class="container">
       <h1>
-        Cabinet médical
-        {{#if nom}}
-          <span id="persoTop">
-            {{prenom}} {{nom}}
-            <a href="/logout" class="btn btn-primary">Se déconnecter <span class="glyphicon glyphicon-log-out"></span></a>
-          </span>
-        {{/if}}
-      </h1>
+          <a href="/">Cabinet médical</a>
+          {{#if data.0.nom}}
+            <span id="persoTop">
+              {{data.0.prenom}} {{data.0.nom}}
+              <a href="/logout" class="btn btn-primary">Se déconnecter <span class="glyphicon glyphicon-log-out"></span></a>
+            </span>
+          {{/if}}
+        </h1>
       {{{body}}}
     </div>
   </body>

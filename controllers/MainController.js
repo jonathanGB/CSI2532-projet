@@ -1,8 +1,49 @@
 var MainModel = require('../models/MainModel');
 
 exports.Index = (req, res) => {
-  if (req.session.user)
-    res.render('Index', req.session.user);
+  if (req.session.user) {
+    var data; // grab the response from the model
+    var type = req.session.user.type;
+
+    if (type === 'Médecin') {
+      var credential = req.session.user.medecinid;
+
+      MainModel.isMedecin(credential, (data) => {
+        if (data.length > 0) {
+          var result = {};
+          result['data'] = data;
+          result['type'] = type;
+          return res.render('Index', result);
+        } else
+          return res.send('error');
+      });
+    } else if (type === 'Secrétaire') {
+      var credential = req.session.user.phonenos;
+
+      MainModel.isSecretaire(credential, (data) => {
+        if (data.length > 0) {
+          var result = {};
+          result['data'] = data;
+          result['type'] = type;
+          return res.render('Index', result);
+        } else
+          return res.send('error');
+      });
+    } else if (type === 'Patient') {
+      var credential = req.session.user.ssn;
+
+      MainModel.isPatient(credential, (data) => {
+        if (data.length > 0) {
+          var result = {};
+          result['data'] = data;
+          result['type'] = type;
+          return res.render('Index', result);
+        } else
+          return res.send('error');
+      });
+    } else
+      return res.status(403).send({'status': 'no type provided'});
+  }
   else {
     res.redirect('/register');
   }
@@ -77,7 +118,7 @@ exports.ValidateRegister = (req, res) => {
         res.status(403).send('error');
       } else {
         req.session.user = {};
-        req.session.user.medecinId = req.body.credential[0];
+        req.session.user.medecinid = req.body.credential[0];
         req.session.user.nom = req.body.credential[2];
         req.session.user.prenom = req.body.credential[3];
         req.session.user.type = 'Médecin';
@@ -92,7 +133,7 @@ exports.ValidateRegister = (req, res) => {
         res.status(403).send('error');
       } else {
         req.session.user = {};
-        req.session.user.phoneNoS = req.body.credential[0];
+        req.session.user.phonenos = req.body.credential[0];
         req.session.user.nom = req.body.credential[1];
         req.session.user.prenom = req.body.credential[2];
         req.session.user.type = 'Secrétaire';
@@ -108,7 +149,7 @@ exports.ValidateRegister = (req, res) => {
         res.status(403).send('error');
       } else {
         req.session.user = {};
-        req.session.user.SSN = req.body.credential[0],
+        req.session.user.ssn = req.body.credential[0],
         req.session.user.nom = req.body.credential[3];
         req.session.user.prenom = req.body.credential[4];
         req.session.user.type = 'Patient';

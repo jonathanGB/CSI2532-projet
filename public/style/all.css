@@ -47,69 +47,82 @@ body h1 #persoTop {
 .toLogin {
   margin-top: 10px;
 }
-#API_Query .arrow {
+.arrow {
   height: 80px;
 }
-#API_Query .left-arrow {
+.left-arrow {
   -ms-transform: rotate(90deg);
   /* IE 9 */
   -webkit-transform: rotate(90deg);
   /* Chrome, Safari, Opera */
   transform: rotate(90deg);
 }
-#API_Query .right-arrow {
+.right-arrow {
   -ms-transform: rotate(-90deg);
   /* IE 9 */
   -webkit-transform: rotate(-90deg);
   /* Chrome, Safari, Opera */
   transform: rotate(-90deg);
 }
-#API_Query table {
+table {
   margin: 0 auto;
 }
-#API_Query table td,
-#API_Query table th {
+table td,
+table th {
   padding: 5px;
   text-align: center;
   font-size: 16px;
 }
-#API_Query table thead tr {
+table thead tr {
   background-color: #C7C7C7;
 }
-#API_Query table tbody tr {
+table tbody tr {
   background-color: white;
 }
-#API_Query table tbody tr:hover {
+table tbody tr:hover {
   background-color: #F7F7F7;
 }
-#API_Query .table-curved {
+.table-curved {
   border-collapse: separate;
 }
-#API_Query .table-curved {
+.table-curved {
   border: solid #ccc 1px;
   border-radius: 6px;
   border-left: 0px;
 }
-#API_Query .table-curved td,
-#API_Query .table-curved th {
+.table-curved td,
+.table-curved th {
   border-left: 1px solid #ccc;
   border-top: 1px solid #ccc;
 }
-#API_Query .table-curved th {
+.table-curved th {
   border-top: none;
 }
-#API_Query .table-curved th:first-child {
+.table-curved th:first-child {
   border-radius: 6px 0 0 0;
 }
-#API_Query .table-curved th:last-child {
+.table-curved th:last-child {
   border-radius: 0 6px 0 0;
 }
-#API_Query .table-curved th:only-child {
+.table-curved th:only-child {
   border-radius: 6px 6px 0 0;
 }
-#API_Query .table-curved tr:last-child td:first-child {
+.table-curved tr:last-child td:first-child {
   border-radius: 0 0 0 6px;
 }
-#API_Query .table-curved tr:last-child td:last-child {
+.table-curved tr:last-child td:last-child {
   border-radius: 0 0 6px 0;
+}
+#indexContainer .navbar-btn a {
+  font-weight: bold;
+}
+#indexContainer a:hover {
+  cursor: pointer;
+}
+#indexContainer .nav-pills {
+  display: inline-block;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }

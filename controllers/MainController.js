@@ -1,4 +1,4 @@
-var Model = require('../models/MainModel');
+var MainModel = require('../models/MainModel');
 
 exports.Index = (req, res) => {
   if (req.session.user)
@@ -34,7 +34,7 @@ exports.ValidateLogin = (req, res) => {
   var type = req.body.type;
 
   if (type === 'medecin') {
-    Model.isMedecin(req.body.credential, (data) => {
+    MainModel.isMedecin(req.body.credential, (data) => {
       if (data.length > 0) {
         req.session.user = data[0];
         req.session.user.type = 'Médecin';
@@ -43,7 +43,7 @@ exports.ValidateLogin = (req, res) => {
         return res.send('error');
     });
   } else if (type === 'secretaire') {
-    Model.isSecretaire(req.body.credential, (data) => {
+    MainModel.isSecretaire(req.body.credential, (data) => {
       if (data.length > 0) {
         req.session.user = data[0];
         req.session.user.type = 'Secrétaire';
@@ -52,7 +52,7 @@ exports.ValidateLogin = (req, res) => {
         return res.send('error');
     });
   } else if (type === 'patient') {
-    Model.isPatient(req.body.credential, (data) => {
+    MainModel.isPatient(req.body.credential, (data) => {
       if (data.length > 0) {
         req.session.user = data[0];
         req.session.user.type = 'Patient';
@@ -71,7 +71,7 @@ exports.ValidateRegister = (req, res) => {
   console.log(req.body.credential);
 
   if (type === 'medecin') {
-    Model.insertMedecin(req.body.credential, (errInsert) => {
+    MainModel.insertMedecin(req.body.credential, (errInsert) => {
       if (errInsert){
         console.log(errInsert);
         res.status(403).send('error');
@@ -86,7 +86,7 @@ exports.ValidateRegister = (req, res) => {
       }
     });
   } else if (type === 'secretaire') {
-    Model.insertSecretaire(req.body.credential, (errInsert) => {
+    MainModel.insertSecretaire(req.body.credential, (errInsert) => {
       if (errInsert){
         console.log(errInsert);
         res.status(403).send('error');
@@ -102,7 +102,7 @@ exports.ValidateRegister = (req, res) => {
       }
     });
   } else if (type === 'patient') {
-    Model.insertPatient(req.body.credential, (errInsert) => {
+    MainModel.insertPatient(req.body.credential, (errInsert) => {
       if (errInsert){
         console.log(errInsert);
         res.status(403).send('error');

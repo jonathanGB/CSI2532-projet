@@ -13,7 +13,7 @@ exports.isMedecin = (medecinId, controllerCallback) => {
     }
 
     // SQL Query > Select Data
-    var query = client.query("SELECT * FROM Medecin WHERE phoneNoS = $1;", [medecinId]);
+    var query = client.query("SELECT * FROM Medecin WHERE medecinId = $1;", [medecinId]);
 
     // Stream results back one row at a time
     query.on('row', function(row) {
@@ -23,7 +23,7 @@ exports.isMedecin = (medecinId, controllerCallback) => {
     // After all data is returned, close connection and return results
     query.on('end', function() {
         done();
-
+        console.log(results);
         controllerCallback(results);
     });
   });

@@ -114,8 +114,37 @@ GROUP BY Medecin.medecinID;
 prescription du médicament M003 ?
 **************************************************************/
 
-		
-	
+SELECT * FROM Medicament WHERE nomM IN
+	(SELECT nom FROM PrescriptionM WHERE SSN = 'P001') AND
+	(nomS NOT IN (SELECT nomS1 FROM ContreIndicationSubSub WHERE nomS2 IN (SELECT nomS FROM Medicament WHERE nomM = 'M003'))
+	AND (nomS NOT IN (SELECT nomS2 FROM ContreIndicationSubSub WHERE nomS1 IN (SELECT nomS FROM Medicament WHERE nomM = 'M003'))));
 
 
+/**************************************************************
+12. Lister la liste des substances actives ainsi que pour chaque substance, les substances incompatibles si elles existent (sinon affichez null)
+**************************************************************/
+
+SELECT nomS AS Substance, nomS1 AS Incompatible
+FROM SubstanceActive LEFT OUTER JOIN ContreIndicationSubSub ON (SubstanceActive.nomS = ContreIndicationSubSub.nomS2);
+-- Pour que ça marche il faut entrer les contre-indications dans les deux sens dans la BDD, sinon ça n'affiche qu'une contre-indication sur deux.
+-- Je n'ai pas trouvé de solution plus élégante mais si vous avez des idées...
+
+/**************************************************************
+13. Créez un trigger qui rejette l’insertion dans une nouvelle prescription d’un médicament contre-indiqué pour un patient donné
+**************************************************************/
+
+
+
+/**************************************************************
+14. Supprimez le médecin « Johan Bos ».
+**************************************************************/
+
+DELETE FROM Medecin WHERE nom = 'Bos' AND prenom = 'Johan';
+
+
+/**************************************************************
+15. Modifiez l’adresse du patient « Manuel Valls »
+**************************************************************/
+
+UPDATE HopitalDB.Patient SET adresse = 'Elysee, Paris, France' WHERE nom = 'Valls' AND prenom = 'Manuel';
 

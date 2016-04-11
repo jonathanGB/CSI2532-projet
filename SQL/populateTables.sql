@@ -18,7 +18,7 @@ INSERT INTO HopitalDB.Patient VALUES ('P005','600-111-1111','M002','Sow','Baly',
 INSERT INTO HopitalDB.Patient VALUES ('P006','700-111-1111','M001','Vaillancourt','Emilie','120 Duchesse Road, Kingston, Hello World','F','31/01/2016');
 INSERT INTO HopitalDB.Patient VALUES ('P007','800-111-1111','M003','Decossard','Hyaad','125 Duchesse Road, Kingston, Hello World','M','15/05/2006');
 INSERT INTO HopitalDB.Patient VALUES ('P008','900-111-1111','M002','Coulibaly','Amadou','185 Duchesse Road, Kingston, Hello World','M','09/10/1946');
-INSERT INTO HopitalDB.Patient VALUES ('P009','000-111-1111','M004','Valls','Manuel','13 rue du port, Marseille, Hello World','M','13/08/1962');
+INSERT INTO HopitalDB.Patient VALUES ('P009','000-111-1111','M003','Valls','Manuel','13 rue du port, Marseille, Hello World','M','13/08/1962');
 
 INSERT INTO HopitalDB.Pathologie VALUES ('Rhume');
 INSERT INTO HopitalDB.Pathologie VALUES ('Grippe');

@@ -62,4 +62,3 @@ INSERT INTO HopitalDB.PrescriptionM VALUES ('P1','P001','12:00','22/12/2013','M3
 INSERT INTO HopitalDB.PrescriptionM VALUES ('P2','P001','10:00','22/01/2014','M4',10);
 
 INSERT INTO HopitalDB.ContreIndicationSubSub VALUES ('Paracetamol','Grippodestructor');
-INSERT INTO HopitalDB.ContreIndicationSubSub VALUES ('Grippodestructor','Paracetamol');

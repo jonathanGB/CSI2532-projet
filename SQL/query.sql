@@ -133,19 +133,28 @@ FROM SubstanceActive LEFT OUTER JOIN ContreIndicationSubSub ON (SubstanceActive.
 13. Créez un trigger qui rejette l’insertion dans une nouvelle prescription d’un médicament contre-indiqué pour un patient donné
 **************************************************************/
 
-CREATE TRIGGER contreindication
-AFTER INSERT OR UPDATE ON PrescriptionM
-FOR EACH ROW
-WHEN NEW.nom IN (SELECT nomM
-			FROM Medicament
-			WHERE (nomS IN (SELECT nomS1 FROM ContreIndicationSubSub WHERE nomS2 IN (SELECT nomS FROM Medicament WHERE nomM IN (SELECT nom FROM PrescriptionM WHERE SSN = NEW.SSN)))
+CREATE OR REPLACE FUNCTION contrindic() RETURNS trigger AS $emp_stamp$
+	BEGIN
+		IF NEW.nom IN (SELECT nomM FROM Medicament WHERE
+			(nomS IN (SELECT nomS1 FROM ContreIndicationSubSub WHERE nomS2 IN (SELECT nomS FROM Medicament WHERE nomM IN (SELECT nom FROM PrescriptionM WHERE SSN = NEW.SSN)))
 			OR (nomS IN (SELECT nomS2 FROM ContreIndicationSubSub WHERE nomS1 IN (SELECT nomS FROM Medicament WHERE nomM IN (SELECT nom FROM PrescriptionM WHERE SSN = NEW.SSN))))
 			OR (nomS IN (SELECT nomS FROM ContreIndicationSubPatho WHERE nomP IN (SELECT nomP FROM PathologiePatient WHERE SSN = NEW.SSN)))
-			OR (nomM IN (SELECT nomM FROM ContreIndicationMediPatho WHERE nomP IN (SELECT nomP FROM PathologiePatient WHERE SSN = NEW.SSN)))));
-BEGIN
-RAISERROR('Ce médicament est contre-indiqué pour ce patient.')
-ROLLBACK TRANSACTION
-END;
+			OR (nomM IN (SELECT nomM FROM ContreIndicationMediPatho WHERE nomP IN (SELECT nomP FROM PathologiePatient WHERE SSN = NEW.SSN))))) THEN
+			RAISE EXCEPTION 'Ce médicament est contre-indiqué pour ce patient.';
+			ELSE RETURN NEW;
+			END IF;
+	END;
+$emp_stamp$ LANGUAGE plpgsql;
+
+CREATE TRIGGER contreindication
+BEFORE INSERT OR UPDATE ON PrescriptionM
+FOR EACH ROW
+EXECUTE PROCEDURE contrindic();
+
+--Ci-joint deux lignes utiles pour tester le code.
+--INSERT INTO HopitalDB.Consultation VALUES ('M001','333-111-1111','P001','Test','11/04/2016','12:00');
+--INSERT INTO HopitalDB.PrescriptionM VALUES ('P3','P001','12:00','11/04/2016','M003',20);
+
 
 
 /**************************************************************

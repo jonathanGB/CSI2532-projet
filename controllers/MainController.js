@@ -181,3 +181,48 @@ exports.CreateConsultation = (req, res) => {
       res.send('ok');
   });
 };
+
+exports.Consultation = (req, res) => {
+  if (!req.session.user)
+    return res.redirect('/');
+
+  var type = req.session.user.type,
+      dataSent = [],
+      data;
+
+  if (type === 'Médecin')
+    dataSent.push('medecinId', req.session.user.medecinid);
+  else if (type === 'Secrétaire')
+    dataSent.push('phoneNoS', req.session.user.phonenos);
+  else if (type === 'Patient')
+    dataSent.push('SSN', req.session.user.ssn);
+  else
+    res.redirect('/');
+
+  console.log(dataSent);
+
+  MainModel.getConsultations(dataSent, (data) => {
+    console.log(data);
+    var result = {};
+    result['data'] = data;
+    result['type'] = type;
+    result['count'] = data.length;
+    result.data[0]['prenom'] = req.session.user.prenom;
+    result.data[0]['nom'] = req.session.user.nom;
+
+    res.render('Consultation', result);
+  });
+};
+
+exports.ModifyObjet = (req, res) => {
+  var errUpdate,
+      userData = req.body.data;
+
+  MainModel.updateObjet(userData, (errUpdate) => {
+    if (errUpdate) {
+      console.log(errUpdate);
+      res.send('error');
+    } else
+      res.send('ok');
+  });
+}

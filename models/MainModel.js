@@ -199,4 +199,56 @@ exports.newConsultation = (userData, controllerCallback) => {
       }
     });
   });
-}
+};
+
+
+exports.getConsultations = (dataSent, controllerCallback) => {
+  var results = [];
+
+  pg.connect(conString, (err, client, done) => {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return controllerCallback([]);
+    }
+    var query;
+
+      if (dataSent[0] === 'medecinId')
+        query = client.query("SELECT * FROM Consultation WHERE medecinId = $1 ORDER BY date, heureDebut", [dataSent[1]]);
+      else if (dataSent[0] === 'phoneNoS')
+        query = client.query("SELECT * FROM Consultation WHERE phoneNoS = $1 ORDER BY date, heureDebut", [dataSent[1]]);
+      else
+        query = client.query("SELECT * FROM Consultation WHERE SSN = $1 ORDER BY date, heureDebut", [dataSent[1]]);
+
+    // Stream results back one row at a time
+    query.on('row', function(row) {
+        results.push(row);
+    });
+
+    // After all data is returned, close connection and return results
+    query.on('end', function() {
+      console.log('end');
+      done();
+      controllerCallback(results);
+    });
+  });
+};
+
+
+exports.updateObjet = (dataSent, controllerCallback) => {
+  pg.connect(conString, function(err, client, done) {
+        // Handle connection errors
+        if(err) {
+          done();
+          console.log(err);
+          return controllerCallback(true);
+        }
+
+        // SQL Query > Insert Data
+        client.query('UPDATE Consultation SET objet = $4 WHERE SSN = $1 AND date = $2 AND heureDebut = $3', dataSent, (err) => {
+          controllerCallback(err);
+          done();
+        });
+    });
+};

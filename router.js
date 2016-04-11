@@ -11,6 +11,8 @@ module.exports = function(app) {
   .post('/register', Controller.ValidateRegister)
   .delete('/logout', Controller.DestroySession)
   .post('/createConsultation', Controller.CreateConsultation)
+  .get('/consultation', Controller.Consultation)
+  .post('/modifyObjet', Controller.ModifyObjet)
 
   .get('/api/query1', QueryController.Query1)
   .get('/api/query2', QueryController.Query2)

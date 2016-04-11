@@ -5,7 +5,7 @@ $(function() {
     language: "fr"
   });
 
-  $('form').submit(function(e) {
+  $('form:not(.customForm)').submit(function(e) {
     e.preventDefault();
 
     var formData = getFormData(e.target);

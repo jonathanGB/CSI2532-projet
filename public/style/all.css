@@ -76,6 +76,10 @@ body h1 #persoTop {
   text-align: center;
   font-size: 16px;
 }
+#API_Query table td span.glyphicon-pencil:hover,
+.customTableContainer table td span.glyphicon-pencil:hover {
+  cursor: pointer;
+}
 #API_Query table thead tr,
 .customTableContainer table thead tr {
   background-color: #C7C7C7 !important;

@@ -10,6 +10,7 @@ module.exports = function(app) {
   .post('/login', Controller.ValidateLogin)
   .post('/register', Controller.ValidateRegister)
   .delete('/logout', Controller.DestroySession)
+  .post('/createConsultation', Controller.CreateConsultation)
 
   .get('/api/query1', QueryController.Query1)
   .get('/api/query2', QueryController.Query2)

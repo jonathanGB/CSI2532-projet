@@ -142,3 +142,6 @@ body h1 #persoTop {
   border-radius: 10px;
   margin-bottom: 20px;
 }
+#indexContainer [type=submit] {
+  margin-left: 10px;
+}

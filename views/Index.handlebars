@@ -12,7 +12,7 @@
       {{#eq type 'Secrétaire'}}
         <li role="presentation" class="active"><a href="/">Info</a></li>
         <li role="presentation"><a href="/consultation">Consultations</a></li>
-        <li role="presentation"><a data-href="/consultation"><span class="glyphicon glyphicon-plus"></span> Consultation</a></li>
+        <li role="presentation"><a role="button" data-toggle="modal" data-target="#createConsultation"><span class="glyphicon glyphicon-plus"></span> Consultation</a></li>
       {{/eq}}
       {{#eq type 'Patient'}}
       <li role="presentation" class="active"><a href="/">Info</a></li>
@@ -40,4 +40,42 @@
         {{/each}}
       </tbody>
     </table>
+
+  <div class="modal fade" id="createConsultation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Créer une consultation</h4>
+        </div>
+        <div class="modal-body">
+          <form id="medecinForm" class="startHide persoForm">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="medecinId">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" value="{{{data.0.phonenos}}}"placeholder="téléphone">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="ssn">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg dateInput" placeholder="date">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="heure">
+            </div>
+            <div class="text-right">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer <span class="glyphicon glyphicon-remove"></span</button>
+              <button type="submit" class="btn btn-primary">Envoyer <span class="glyphicon glyphicon-ok"></span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script src="/public/script/bootstrap-datepicker.min.js"></script>
+<script src="/public/locales/bootstrap-datepicker.fr.min.js"></script>
+<script src="/public/script/index.js"></script>

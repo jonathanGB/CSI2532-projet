@@ -135,3 +135,68 @@ exports.insertPatient = (userData, controllerCallback) => {
         });
     });
 };
+
+exports.newConsultation = (userData, controllerCallback) => {
+  var results = [];
+
+  pg.connect(conString, function(err, client, done) {
+    // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return controllerCallback(true);
+    }
+
+    // medecin is linked with the right secretaire
+    var query = client.query('SELECT * FROM Medecin WHERE medecinId = $1 AND phoneNoS = $2', [userData[0], userData[1]]);
+
+    query.on('row', function(row) {
+        results.push(row);
+    });
+
+    query.on('end', function() {
+      if (results.length === 0) {
+        done();
+        return controllerCallback(true);
+      } else {
+        var results2 = [];
+        // patient is linked with the right medecin
+        var query2 = client.query('SELECT * FROM Patient WHERE SSN = $1 AND medecinId = $2', [userData[2], userData[0]]);
+
+        query2.on('row', function(row) {
+            results2.push(row);
+        });
+
+        query2.on('end', function() {
+          if (results2.length === 0) {
+            done();
+            return controllerCallback(true)
+          }
+          else {
+            var results3 = [];
+            // no conflict
+            var query3 = client.query('SELECT * FROM Consultation WHERE date = $1 AND heureDebut = $2 AND (medecinId = $3 OR SSN = $4)', [userData[4], userData[5], userData[0], userData[2]]);
+
+            query3.on('row', function(row) {
+                results3.push(row);
+            });
+
+            query3.on('end', function() {
+              if (results3.length > 0) {
+                done();
+                return controllerCallback(true);
+              }
+              else {
+                // SQL Query > Insert Data
+                client.query('INSERT INTO  Consultation values($1, $2, $3, $4, $5, $6)', userData, (err) => {
+                  controllerCallback(err);
+                  done();
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+  });
+}

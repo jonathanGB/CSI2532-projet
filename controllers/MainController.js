@@ -42,7 +42,7 @@ exports.Index = (req, res) => {
           return res.send('error');
       });
     } else
-      return res.status(403).send({'status': 'no type provided'});
+      return res.send({'status': 'no type provided'});
   }
   else {
     res.redirect('/register');
@@ -102,7 +102,7 @@ exports.ValidateLogin = (req, res) => {
         return res.send('error');
     });
   } else
-    return res.status(403).send({'status': 'no type provided'});
+    return res.send({'status': 'no type provided'});
 }
 
 exports.ValidateRegister = (req, res) => {
@@ -115,7 +115,7 @@ exports.ValidateRegister = (req, res) => {
     MainModel.insertMedecin(req.body.credential, (errInsert) => {
       if (errInsert){
         console.log(errInsert);
-        res.status(403).send('error');
+        res.send('error');
       } else {
         req.session.user = {};
         req.session.user.medecinid = req.body.credential[0];
@@ -130,7 +130,7 @@ exports.ValidateRegister = (req, res) => {
     MainModel.insertSecretaire(req.body.credential, (errInsert) => {
       if (errInsert){
         console.log(errInsert);
-        res.status(403).send('error');
+        res.send('error');
       } else {
         req.session.user = {};
         req.session.user.phonenos = req.body.credential[0];
@@ -146,7 +146,7 @@ exports.ValidateRegister = (req, res) => {
     MainModel.insertPatient(req.body.credential, (errInsert) => {
       if (errInsert){
         console.log(errInsert);
-        res.status(403).send('error');
+        res.send('error');
       } else {
         req.session.user = {};
         req.session.user.ssn = req.body.credential[0],
@@ -158,14 +158,26 @@ exports.ValidateRegister = (req, res) => {
       }
     });
   } else
-    return res.status(403).send({'status': 'no type provided'});
+    return res.send({'status': 'no type provided'});
 };
 
 exports.DestroySession = (req, res) => {
   req.session.destroy((err) => {
     if (err)
-      res.status(500).send('error');
+      res.send('error');
     else
       res.status(200).send('ok');
   })
 }
+
+exports.CreateConsultation = (req, res) => {
+  var errInsert; // grab the response from the model
+
+  MainModel.newConsultation(req.body.data, (errInsert) => {
+    if (errInsert) {
+      console.log(errInsert);
+      res.send('error');
+    } else
+      res.send('ok');
+  });
+};
